@@ -1,0 +1,21 @@
+﻿{% extends 'app1/base.html' %}
+
+{% block header %}
+    搜索结果
+{% endblock header %}
+
+{% block content %}
+<ul>
+    {% for post in posts %}
+    <li>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                 <a href="{% url 'app1:view_post' post.id %}">{{ post.title }}</a>
+            </div>
+        </div>
+    </li>
+    {% empty %}
+        <h3>没有找到你要的内容</h3>
+    {% endfor %}
+</ul>
+{% endblock content %}

@@ -1,0 +1,13 @@
+{% extends 'app1/base.html' %}
+{% block head %}
+<h3>上传文件</h3>
+	<p><a href="{% url 'resource:topics' %}">返回</a></p>
+{% endblock head%}
+
+{% block content %}
+	<form method='post' enctype='multipart/form-data'>
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type='submit' class="btn btn-primary" style="border: royalblue;background-color:royalblue ">上传</button>
+	</form>
+{% endblock content%}

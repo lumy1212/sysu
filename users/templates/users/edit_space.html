@@ -1,0 +1,14 @@
+{% extends 'app1/base.html'%}
+{% block header %}
+	<h3>编辑个人信息</h3>
+{% endblock header %}
+{% block content %}
+	<p><a href="{% url 'users:myspace' %}">返回</a></p>
+
+	<form action="{% url 'users:edit_space' %}" method='POST'>
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button name='submit' class="btn btn-primary" style="border: royalblue;background-color:royalblue ">保存修改</button>
+	</form>
+
+{% endblock content%}

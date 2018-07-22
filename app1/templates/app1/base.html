@@ -1,0 +1,78 @@
+{% load bootstrap3 %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>双鸭山乐园</title>
+        {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    </head>
+
+    <body>
+    <!-- Static navbar -->
+        <nav class="navbar navbar-default navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed"
+                        data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                    </button>
+                    <a class="navbar-brand" href="{% url 'app1:index' %}" >双鸭山乐园</a>
+
+                </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+                    {% if user.is_authenticated %}
+                        <ul class="nav navbar-nav">
+                            <li><a href="{% url 'app1:discuss' %}">讨论区</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav">
+                            <li><a href="{% url 'resource:topics' %}">资源库</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav">
+                            <li><a href="{% url 'app1:entertainment' %}">休闲区</a></li>
+                        </ul>
+                    {% else %}
+                        <ul class="nav navbar-nav">
+                            <li><a href="{% url 'users:login' %}">讨论区</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav">
+                            <li><a href="{% url 'users:login' %}">资源库</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav">
+                            <li><a href="{% url 'users:login' %}">休闲区</a></li>
+                        </ul>
+                    {% endif %}
+
+                    <ul class="nav navbar-nav navbar-right">
+
+                        {% if user.is_authenticated %}
+
+                            <li><a>欢迎你的到来, {{ user.username }}.</a></li>
+                            <li><a href="{% url 'users:myspace'%}">个人主页</a></li>
+                            <li><a href="{% url 'users:logout' %}">退出登录</a></li>
+                        {% else %}
+                            <li><a href="{% url 'users:register' %}">注册</a></li>
+                            <li><a href="{% url 'users:login' %}">登录</a></li>
+                        {% endif %}
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+
+        <div class="container">
+
+            <div class="page-header">
+                {% block header %}{% endblock header %}
+            </div>
+        <div>
+            {% block content %}{% endblock content %}
+        </div>
+        </div> <!-- /container -->
+
+    </body>
+</html>

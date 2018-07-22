@@ -1,0 +1,28 @@
+{% extends "app1/base.html" %}
+{% block header %}
+    <h2>&emsp;&emsp;讨论区课程 </h2>
+    <h4>
+      <div align="right">
+      <form method="GET" action="{% url 'app1:search_post' %}" >
+          {% csrf_token %}
+          &emsp;&emsp;<input type="text" class="form-control" name="search" placeholder="搜索帖子" style="background-color:aliceblue;width: 25%"/>
+      </form>
+      </div>
+    </h4>
+{% endblock header %}
+{% block content %}
+  <ul><div class='jumbotron' style="background-color: whitesmoke">
+    {% for column in columns %}
+      <li>
+        <h4>
+            <a href="{% url 'app1:column' column.id %}">{{ column }}</a>
+        </h4>
+      </li>
+    {% empty %}
+      <li>暂未添加课程</li>
+    {% endfor %}
+  </ul></div>
+
+<!--   <h3><a href="{% url 'app1:new_column' %}">添加新课程</h3>-->
+
+{% endblock content %}

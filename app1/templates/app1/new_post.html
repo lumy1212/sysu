@@ -1,0 +1,20 @@
+{% extends "app1/base.html" %}
+{% load bootstrap3 %}
+
+{% block header %}
+  <h2>创建新帖:</h2>
+{% endblock header %}
+  
+{% block content %}
+  <form action="{% url 'app1:new_post' column.id %}" method='post'
+    class="form">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+
+    {% buttons %}
+      <button name="submit" class="btn btn-primary">发布</button>
+    {% endbuttons %}
+
+  </form>
+  
+{% endblock content %}

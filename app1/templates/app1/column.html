@@ -1,0 +1,24 @@
+{% extends 'app1/base.html' %}
+
+{% block header %}
+  <h2>{{ column }}</h2>
+  <div align="right" >
+    <h4><a href="{% url 'app1:new_post' column.id %}">创建新帖</a></h4>
+  </div>
+{% endblock header %}
+
+{% block content %}
+  {% for post in posts %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4>
+            <a href="{% url 'app1:view_post' post.id %}">{{ post.title }}</a>
+          <div align="right"><h5>作者:{{post.author}}&emsp;创建日期:{{post.date_added}}&emsp;阅读量{{post.read_num }}</li></h5></div>
+        </h4>
+      </div>
+    </div> <!-- panel -->
+  {% empty %}
+    此栏目暂无文章
+  {% endfor %}
+
+{% endblock content %}

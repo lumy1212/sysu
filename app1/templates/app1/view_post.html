@@ -1,0 +1,81 @@
+{% extends "app1/base.html" %}
+{% load bootstrap3 %}
+
+{% block header %}
+    <h1>{{post.title}}</h1>
+    <div align="right">
+        <p>发表日期：{{post.date_added}}</p>
+        <p>作者：{{post.author}}</p>
+        <p>阅读量：{{post.read_num}}</p>
+        {% if request.user == post.author %}
+        <a href="{% url 'app1:edit_post' post.id %}">编辑</a>
+        {% endif %}
+    </div>
+{% endblock header %}
+
+{% block content %}
+    <div class="panel panel-default">
+     <div class="panel-body" style=" margin:20px">
+
+           <h4>{{post.text|linebreaks }}</h4>
+
+     </div>
+    </div> <!-- panel -->
+    <form action="{% url 'app1:thumb_up' post.id %}" method='post' class="form">
+        {% csrf_token %}
+        <button name="thumbup" class="btn btn-primary" style="background-color: indianred;border: indianred">点赞</button> {{thumbups}}
+        <p></p>
+      </form>
+
+    <div class="panel panel-default">
+     <div class="panel-heading">
+       <h4>评论</h4>
+     </div>
+     <div class="panel-body" >
+       <form action="{% url 'app1:new_comment' post.id %}" method='post' class="form">
+        {% csrf_token %}
+           <p>欢迎分享你的见解
+           {% if reply != 0 %}
+           <h5>回复{{pf}}楼的评论</h5>
+           {% endif %}
+           </p>
+           {% bootstrap_form form %}
+        {% buttons %}
+           <div align="right">
+            <button name="submit" class="btn btn-primary" value={{reply}} style="border: royalblue;background-color:royalblue " >提交</button>
+           </div>
+        {% endbuttons %}
+
+      </form>
+     </div>
+    </div> <!-- panel -->
+     {% for comment in comments %}
+        <div class="panel panel-default" >
+          <div class="panel-heading">
+            <h5>
+                {{ comment.floor }}楼 {{ comment.reviewer}} {{ comment.date}}
+                <form action="{% url 'app1:reply' post.id %}" method='post' class="form" >
+                  {% csrf_token %}
+                  <div align="right">
+                    {% buttons %}
+                      <button name="reply" class="btn btn-primary" value={{comment.id}} style="border: royalblue;background-color:royalblue ">回复</button>
+                    {% endbuttons %}
+                  </div>
+                </form>
+                {% if comment.parent_comment != None %}
+                <p>回复{{comment.parent_comment.floor}}楼的评论:</p>
+                {% endif %}
+                {{ comment.text|linebreaks }}
+            </h5>
+          </div>
+        </div> <!-- panel -->
+    {% empty %}
+    暂无评论
+    {% endfor %}
+
+
+
+{% endblock content %}
+
+
+

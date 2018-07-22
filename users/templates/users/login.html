@@ -1,0 +1,24 @@
+{% extends "app1/base.html" %}
+  {% load bootstrap3 %}
+
+  {% block header %}
+    <h2>账户登录</h2>
+{% endblock header %}
+
+{% block content %}
+<div align="center">
+  <div class='jumbotron' style="width:35%;background-color:whitesmoke">
+    <div align="left">
+      <form method="post" action="{% url 'users:login' %}" class="form" style="width:100%">
+        {% csrf_token %}
+          {% bootstrap_form form %}
+          {% buttons %}
+            <button name="submit" class="btn btn-primary" style="border: royalblue;background-color:royalblue ">登录</button>
+        {% endbuttons %}
+
+        <input type="hidden" name="next" value="{% url 'app1:index' %}" />
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}

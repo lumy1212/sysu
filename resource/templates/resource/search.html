@@ -1,0 +1,27 @@
+﻿{% extends 'app1/base.html' %}
+
+{% block header %}
+<h3>搜索结果</h3>
+{% endblock header %}
+
+{% block content %}
+    {% if myfiles %}
+        <ul>
+             {% for myfile in myfiles %}
+                <li>
+                 <div class="panel panel-default">
+                   <div class="panel-heading">
+                     <p>文件名: {{ myfile.filename }}</p>
+                     <p>上传者: {{ myfile.uploader.username }}</p>
+                     <p>上传时间: {{ myfile.date_added }}</p>
+
+                     <a href="{% url 'resource:download' myfile.id %}">下载</a>
+                    </div>
+                </div>
+               </li>
+             {% empty %}
+                <li>无符合结果</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock content %}

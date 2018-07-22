@@ -1,0 +1,36 @@
+{% extends 'app1/base.html'%}
+{% load staticfiles %}
+{% block header %}
+    <div align="center">
+        <img src="/static/images/2ducks.png" alt="Double Ducks" width="100" height="100" >
+    </div>
+{% endblock header %}
+
+{% block content %}
+<div class="panel panel-default">
+  <div class="panel-heading">
+  <h4>个人信息:</h4>
+	<p>&emsp;&emsp;&emsp;用户名: {{ person.name }}</p>
+	<p>&emsp;&emsp;&emsp;学号: {{ person.student_id }}</p>
+	<p>&emsp;&emsp;&emsp;专业: {{ person.major }}</p>
+	<p>&emsp;&emsp;&emsp;年级: {{ person.grade }}</p>
+	<p>&emsp;&emsp;&emsp;邮箱: {{ person.email }}</p>
+	<p>&emsp;&emsp;&emsp;<a href="{% url 'users:edit_space' %}">编辑个人信息</a></p>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+  <h4>我的文章:</h4>
+  {% for post in posts %}
+		<h5>
+            &emsp;&emsp;&emsp;<a href="{% url 'app1:view_post' post.id %}">{{ post.title }}</a>
+         
+            
+          
+        </h5>
+  {% empty %}
+    暂无文章
+  {% endfor %}
+  </div>
+</div>
+{% endblock content%}

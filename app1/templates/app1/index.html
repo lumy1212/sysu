@@ -1,0 +1,18 @@
+{% extends "app1/base.html" %}
+{% load staticfiles %}
+{% block header %}
+    <div class='jumbotron' style="background-color: aliceblue">
+        <div align="center">
+        <img src="/static/images/2ducks.png" alt="Double Ducks" width="200" height="200" >
+        <h1>双鸭山乐园</h1>
+         <h2>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;——中大学子的分享交流平台</h2>
+        </div>
+    </div>
+
+
+    <h4>
+		<p>&emsp;感到鸭力，来放松一下吧！</p>
+		&emsp;<a href="{% url 'users:register' %}">注册新账号</a> 以使用个人界面,体验更多功能
+    </h4>
+{% endblock header %}
+    
